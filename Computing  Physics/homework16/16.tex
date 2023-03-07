@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper,titlepage,openany]{book}
+\usepackage[space]{ctex}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm,ntheorem,graphicx}
+\usepackage[paperwidth=185mm,paperheight=260mm,text={148mm,210mm},left=21mm,includehead,vmarginratio=1:1]{geometry}
+\usepackage{fancyhdr,titlesec,enumerate}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[OC]{\nouppercase{\heiti\rightmark}}
+\fancyhead[EC]{\nouppercase{\heiti\leftmark}}
+\fancypagestyle{plain}{\renewcommand{\headrulewidth}{0pt}\fancyhf{}}
+\theoremstyle{plain}
+\newcounter{Proposition}[section]
+\newenvironment{Proposition}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Proposition}\arabic{Proposition}#1~~}\kaishu}{\par}
+\newcounter{Corollary}[section]
+\newenvironment{Corollary}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Corollary}\arabic{Corollary}#1~~}\kaishu}{\par}
+\newcounter{Theorem}[section]
+\newenvironment{Theorem}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Theorem}\arabic{Theorem}#1~~}\kaishu}{\par}
+\newcounter{Lemma}[section]
+\newenvironment{Lemma}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Lemma}\arabic{Lemma}#1~~}\kaishu}{\par}
+\newcounter{Property}[section]
+\newenvironment{Property}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Property}\arabic{Property}#1~~}\kaishu}{\par}
+\newcounter{Assertion}[section]
+\newenvironment{Assertion}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Assertion}\arabic{Assertion}#1~~}\kaishu}{\par}
+\newenvironment{Proof}{{\par{\heiti Ö¤ï¿½ï¿½}~~}}{\hfill $\square$ \par\hfill\par}
+\newcounter{Example}[section]
+\newenvironment{Example}[1][]{{\par\normalfont\bfseries ï¿½ï¿½~\stepcounter{Example}\arabic{Example}#1~~}\songti}{\hfill\par\hfill\par}
+\newcounter{Def}[section]
+\newenvironment{Def}[1][]{{\par\normalfont\bfseries ï¿½ï¿½ï¿½ï¿½~\stepcounter{Def}\arabic{Def}#1~~\songti}}{\par}
+\newcounter{Note}[section]
+\newenvironment{Note}[1][]{{\par\normalfont\bfseries ×¢~\stepcounter{Note}\arabic{Note}#1~~}\songti}{\par}
+\title{{\zihao{0}\heiti Phase space }}
+\author{ÑîÊ¥Óî}
+\maketitle
+
+\newpage
+
+\chapter{}
+Both A and B are right in some point, but the question is what is the phase space and possibility density in $Ising$ model. First we should notice that it is a quantum system, and we can know from the Hamiltonian $H=\sum\limits_{i}\beta_{i}\sigma_{i}+\sum\limits_{<ij>}J_{ij}\sigma_{i}\sigma_{j}$, there is no relation with $x$ and $p$, so we can actually construct a symplectic structure by a pair coniancal variables $x$ and $p$ like A said, but useable. And we find the parameter define the Hamiltonian is $\sigma$, but it doesn't means that we have to set the spin $\sigma$ be the coniancal variables. Actually we can use wave functions in quantum mechanics to describe the different state, and of course the coefficient function is continus, and then we can get a good variable to construct the phase space. we can also use the field to construct the symplectic structure, which a more natural view point. By the coniancal quantization, we get the dual variable of the field.\par
+As for $Liouville$ theorem, that is not a concept for the classical mechanics here, but a quantum system, which derived directly from the conservation of the local possibility.\par
+The ensemble is a very general concept without the chosen of the coniancal variables. The main idea of ensemble is put a very large of same system together, and let them involution individually.\par
+The Markov chain is used to describe the transition rate between different stable states, the state need to be stable, and we can write it as a matrix.\par
+\end{document} 

@@ -1,0 +1,71 @@
+\documentclass[11pt,a4paper,titlepage,openany]{book}
+\usepackage[space]{ctex}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm,ntheorem,graphicx}
+\usepackage[paperwidth=185mm,paperheight=260mm,text={148mm,210mm},left=21mm,includehead,vmarginratio=1:1]{geometry}
+\usepackage{fancyhdr,titlesec,enumerate}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[OC]{\nouppercase{\heiti\rightmark}}
+\fancyhead[EC]{\nouppercase{\heiti\leftmark}}
+\fancypagestyle{plain}{\renewcommand{\headrulewidth}{0pt}\fancyhf{}}
+\theoremstyle{plain}
+\newcounter{Proposition}[section]
+\newenvironment{Proposition}[1][]{{\par\normalfont\bfseries 命题~\stepcounter{Proposition}\arabic{Proposition}#1~~}\kaishu}{\par}
+\newcounter{Corollary}[section]
+\newenvironment{Corollary}[1][]{{\par\normalfont\bfseries 推论~\stepcounter{Corollary}\arabic{Corollary}#1~~}\kaishu}{\par}
+\newcounter{Theorem}[section]
+\newenvironment{Theorem}[1][]{{\par\normalfont\bfseries 定理~\stepcounter{Theorem}\arabic{Theorem}#1~~}\kaishu}{\par}
+\newcounter{Lemma}[section]
+\newenvironment{Lemma}[1][]{{\par\normalfont\bfseries 引理~\stepcounter{Lemma}\arabic{Lemma}#1~~}\kaishu}{\par}
+\newcounter{Property}[section]
+\newenvironment{Property}[1][]{{\par\normalfont\bfseries 性质~\stepcounter{Property}\arabic{Property}#1~~}\kaishu}{\par}
+\newcounter{Assertion}[section]
+\newenvironment{Assertion}[1][]{{\par\normalfont\bfseries 断语~\stepcounter{Assertion}\arabic{Assertion}#1~~}\kaishu}{\par}
+\newenvironment{Proof}{{\par{\heiti 证明}~~}}{\hfill $\square$ \par\hfill\par}
+\newcounter{Example}[section]
+\newenvironment{Example}[1][]{{\par\normalfont\bfseries 例~\stepcounter{Example}\arabic{Example}#1~~}\songti}{\hfill\par\hfill\par}
+\newcounter{Def}[section]
+\newenvironment{Def}[1][]{{\par\normalfont\bfseries 定义~\stepcounter{Def}\arabic{Def}#1~~\songti}}{\par}
+\newcounter{Note}[section]
+\newenvironment{Note}[1][]{{\par\normalfont\bfseries 注~\stepcounter{Note}\arabic{Note}#1~~}\songti}{\par}
+\title{{\zihao{0}\heiti Homework10}}
+\author{杨圣宇}
+\maketitle
+\chapter{Method Analysis}
+\section{Count}
+It's easy to randomly walk in different dimensions, just walking in one dimension and then multiply them individually. \par
+The question is how to find the particle back to the zero, and we can use a temp-variable and count the number of the 0 at each dimension component after randomly walking. If the temp-variable equals the dimension, then return a true value and end the random walking, then the total counter will plus 1.
+\chapter{Result}
+We generate 10000 particles and set the maximal steps to 10000.\par
+For d=1:\par
+\includegraphics{d=1.pdf}\par
+\includegraphics{d=1_fit.pdf}\par
+As we can see in the graphic, for situation d=1, it's nearly a linear relation between $ln(P)\sim ln(N)$.\par
+For d=2:\par
+\includegraphics{d=2.pdf}\par
+\includegraphics{d=2_fit.pdf}\par
+The linear relation degenerate to a dependent relation.\par
+For d=3:\par
+\includegraphics{d=3.pdf}\par
+\includegraphics{d=3_fit.pdf}\par
+There is no dependent relation indeed.\par
+So we cannot define a exponential degree for the probability, maybe comes from the fluctuation of the random walk.
+\chapter{Others}
+\section{appendix}
+1.dat\par
+2.dat\par
+3.dat\par
+d=1.pdf\par
+d=1-fit.pdf\par
+d=2.pdf\par
+d=2-fit.pdf\par
+d=3.pdf\par
+d=3-fit.pdf\par
+Untitled-1.tex\par
+Untitled-1.cpp\par
+CP13DASW.exe\par
+\section{reference}
+C++ primer,2003.11,Stanley B.Lippman;Josee Lajoie;Barbara E.Moo,Pearson Education Asia LTD.
+\end{document} 

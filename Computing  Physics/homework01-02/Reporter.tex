@@ -1,0 +1,87 @@
+\documentclass[11pt,a4paper,titlepage,openany]{book}
+\usepackage[space]{ctex}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm,ntheorem,graphicx}
+\usepackage[paperwidth=185mm,paperheight=260mm,text={148mm,210mm},left=21mm,includehead,vmarginratio=1:1]{geometry}
+\usepackage{fancyhdr,titlesec,enumerate}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[OC]{\nouppercase{\heiti\rightmark}}
+\fancyhead[EC]{\nouppercase{\heiti\leftmark}}
+\fancypagestyle{plain}{\renewcommand{\headrulewidth}{0pt}\fancyhf{}}
+\theoremstyle{plain}
+\newcounter{Proposition}[section]
+\newenvironment{Proposition}[1][]{{\par\normalfont\bfseries 命题~\stepcounter{Proposition}\arabic{Proposition}#1~~}\kaishu}{\par}
+\newcounter{Corollary}[section]
+\newenvironment{Corollary}[1][]{{\par\normalfont\bfseries 推论~\stepcounter{Corollary}\arabic{Corollary}#1~~}\kaishu}{\par}
+\newcounter{Theorem}[section]
+\newenvironment{Theorem}[1][]{{\par\normalfont\bfseries 定理~\stepcounter{Theorem}\arabic{Theorem}#1~~}\kaishu}{\par}
+\newcounter{Lemma}[section]
+\newenvironment{Lemma}[1][]{{\par\normalfont\bfseries 引理~\stepcounter{Lemma}\arabic{Lemma}#1~~}\kaishu}{\par}
+\newcounter{Property}[section]
+\newenvironment{Property}[1][]{{\par\normalfont\bfseries 性质~\stepcounter{Property}\arabic{Property}#1~~}\kaishu}{\par}
+\newcounter{Assertion}[section]
+\newenvironment{Assertion}[1][]{{\par\normalfont\bfseries 断语~\stepcounter{Assertion}\arabic{Assertion}#1~~}\kaishu}{\par}
+\newenvironment{Proof}{{\par{\heiti 证明}~~}}{\hfill $\square$ \par\hfill\par}
+\newcounter{Example}[section]
+\newenvironment{Example}[1][]{{\par\normalfont\bfseries 例~\stepcounter{Example}\arabic{Example}#1~~}\songti}{\hfill\par\hfill\par}
+\newcounter{Def}[section]
+\newenvironment{Def}[1][]{{\par\normalfont\bfseries 定义~\stepcounter{Def}\arabic{Def}#1~~\songti}}{\par}
+\newcounter{Note}[section]
+\newenvironment{Note}[1][]{{\par\normalfont\bfseries 注~\stepcounter{Note}\arabic{Note}#1~~}\songti}{\par}
+\title{{\zihao{0}\heiti Homework 01-02}}
+\author{杨圣宇}
+\maketitle
+\chapter{算法分析}
+在具体的算法编程中，
+\section{Schrage算法生成随机数}
+考虑到线性同余法的因子膨胀问题，在迭代多次后可能会使得在求模运算前溢出，$Schrage$ 算法正是被用来解决这样的问题\par
+$Schrage$ 算法的思路是把同余运算，或者部分同余运算提前，利用同余分解，我们可以得到
+$$m=aq+r, q=[\frac{m}{a}], r= m\mod a$$
+在比较常见的16807产生器中，对于 $m=2147483647, a=16807$，我们可以得到 $q=127773, r=2836$。
+在一般的计算中，新的随机数由上一个随机数生成，我们记为 $z$，有 $az\mod m$ 为我们想要的随机数，我们对 $az$ 做分解，有 $az=\dfrac{z}{q}(aq+r)-\dfrac{rz}{q}$，再分别对 $z$ 做同余分解，$$az=[\frac{z}{q}](aq+r)+\frac{z\mod q}{q}(aq+r)-r[\frac{z}{q}]-r\frac{z\mod q}{q}$$
+现在计算 $az\mod m$
+$$([\frac{z}{q}](aq+r)+\frac{z\mod q}{q}(aq+r)-r[\frac{z}{q}]-r\frac{z\mod q}{q})\mod m$$
+其中第一项因为都是整数，所以模 $0$，第二项打开括号其中一项与第四项相抵，还剩下$$(a(z\mod q)-r[\dfrac{z}{q}])\mod m$$
+最后的结果根据正负来决定是否加上 $m$。\par
+在具体的程序中，生成随机序列可以交由一个函数完成，在主函数里分别调用不同参数的“生成函数”，即可得到不同的序列，需要注意的是，若是要生成两个连续的列，那么还得有一个逆向生成函数用来将指标反向降下去。\par
+对于生成函数即可以直接调用上文的结论使用判断语句即可完成简单的迭代。详细见
+\section{随机数列的均匀性检验}
+在这里我们使用高阶矩的方式检验，对于随机分布，若均匀，数列的高阶矩 $<x^{k}>$ 满足 $$<x^{k}>=\dfrac{1}{N}\Sigma x_{i}^{k} \rightarrow \int^{1}_{0} x^{k}p(x)dx=\dfrac{1}{k+1}$$
+其中均匀分布假设使得 $p(x)$，以及服从分布
+$$\|<x^{k}>-\dfrac{1}{k+1}\| \sim O(\dfrac{1}{\sqrt{N}})$$
+具体在程序中幂次可以用 $pow(*,*)$ 函数实现，算法很简单，但是特别一提的是，我们虽然是对单列数据分析，但是之前的数据的格式是二维的，所以要在读取函数中加一个数组指针用来读另一个坐标轴的数据，即使我们不一定会用到。\par
+\section{随机数列的独立性检验}
+对于独立性检验，我们用带有步长为参数的自关联函数 $$C(l)=\dfrac{<x_{n}x_{n+l}>-<x_{n}>^{2}}{<x_{n}^{2}>-<x_{n}>^{2}}$$
+$l$ 为步长，对于一个均匀分布，应该有 $<x_{n}x_{n+l}>=<x_{n}><x_{n+l}>=<x_{n}>^{2}$，所以有 $C(l)=0$。\par
+在具体的算法中，我们应用了均匀性检验的矩函数，注意到 $C(l)$ 中有一阶矩和二阶矩以及一个混合矩也就是我们要专门新创造的函数。
+为了方便起见我们将相关性检验的内容放在一个程序运行。
+\chapter{实验过程}
+\section{Schrage算法生成随机数列}
+在具体的操作中，当 $N$ 达到 $10^{7}$ 的数量级时，数据文件夹就已经到达了上百MB，用这样的数据做出来的点列图已经是完全不可分辨具体性状了。\par
+\includegraphics[scale=0.25]{N=1000000-part.png}\par
+这是一张 $N=10^{6}$ 的局部图，从图中基本可以看不到任何信息。于是我们降低 $N$ 的数量级，在 $N=10^{5}$ 时，有\par
+\includegraphics[scale=0.23]{N=100000-full.png}\par
+可以看到这次的图像是有具体的信息存在的，我们再次放大寻找局部细节
+\includegraphics[scale=0.23]{N=100000-part.png}\par
+我们可以发现，在局部图中可以找到一些局部线性的点列，它们聚集在一起形成了类似于条带的结构，这说明 $Schrage$ 方法产生的随机数依然不够随机。
+\section{随机数列的均匀性检验}
+我们取 $N=2\times 10^{7}$，$K=2$ ，经计算得 $\|<x^{k}>-\dfrac{1}{k+1}\|=0.00064$，可见均匀性在此时已经很好了，为了研究普适情况，我在程序里加了一个跑动 $K$ 值与 $N$ 值的算法，结果详见c-dif.dat。可以看到在 $K\geqslant 3$ 时， 时，其值基本已经在0.000001附近浮动，但是在快接近2000万时有所上扬，这是由于我采用了逆序的办法构造，所以在逆序的开始，也就是 $N$ 附近的项，理所应当会有比较高的关联关系。于是我们主要来分析一阶矩和二阶矩，从数据上看来，一阶矩基本上在0.20左右浮动，浮动区间在0.001左右，可见对N的变化不是很敏感。
+对于二阶矩，变化是很明显的。为此我们专门研究了一下 $\|<x^{k}>-\dfrac{1}{k+1}\|$ 与 $N$ 的关系，详见c-dif-2.dat，其实也可以看出来，线性关系并不是很明显.
+\section{随机数列的独立性检验}
+在 $N=2\times 10^{7}$ 时，得到 $C((l)=-0.000131$，可见，此时独立性也不错。
+\chapter{结论}
+总体来讲，我们得到了性质还算可以的随机数和描述随机数“随机”程度的方法，并进行了切实的检验，从结果看来，检验是较为成功的。
+\section{附件}
+c-dif.dat\par
+c-dif-2.dat\par
+N=100000-full.png\par
+N=100000-part.png\par
+N=1000000-part.png\par
+test.dat\par
+随机数序列.cpp\par
+随机数序列.exe\par
+相关系数.cpp\par
+相关系数.exe\par
+\end{document}

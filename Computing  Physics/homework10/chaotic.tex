@@ -1,0 +1,59 @@
+\documentclass[11pt,a4paper,titlepage,openany]{book}
+\usepackage[space]{ctex}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm,ntheorem,graphicx}
+\usepackage[paperwidth=185mm,paperheight=260mm,text={148mm,210mm},left=21mm,includehead,vmarginratio=1:1]{geometry}
+\usepackage{fancyhdr,titlesec,enumerate}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[OC]{\nouppercase{\heiti\rightmark}}
+\fancyhead[EC]{\nouppercase{\heiti\leftmark}}
+\fancypagestyle{plain}{\renewcommand{\headrulewidth}{0pt}\fancyhf{}}
+\theoremstyle{plain}
+\newcounter{Proposition}[section]
+\newenvironment{Proposition}[1][]{{\par\normalfont\bfseries 命题~\stepcounter{Proposition}\arabic{Proposition}#1~~}\kaishu}{\par}
+\newcounter{Corollary}[section]
+\newenvironment{Corollary}[1][]{{\par\normalfont\bfseries 推论~\stepcounter{Corollary}\arabic{Corollary}#1~~}\kaishu}{\par}
+\newcounter{Theorem}[section]
+\newenvironment{Theorem}[1][]{{\par\normalfont\bfseries 定理~\stepcounter{Theorem}\arabic{Theorem}#1~~}\kaishu}{\par}
+\newcounter{Lemma}[section]
+\newenvironment{Lemma}[1][]{{\par\normalfont\bfseries 引理~\stepcounter{Lemma}\arabic{Lemma}#1~~}\kaishu}{\par}
+\newcounter{Property}[section]
+\newenvironment{Property}[1][]{{\par\normalfont\bfseries 性质~\stepcounter{Property}\arabic{Property}#1~~}\kaishu}{\par}
+\newcounter{Assertion}[section]
+\newenvironment{Assertion}[1][]{{\par\normalfont\bfseries 断语~\stepcounter{Assertion}\arabic{Assertion}#1~~}\kaishu}{\par}
+\newenvironment{Proof}{{\par{\heiti 证明}~~}}{\hfill $\square$ \par\hfill\par}
+\newcounter{Example}[section]
+\newenvironment{Example}[1][]{{\par\normalfont\bfseries 例~\stepcounter{Example}\arabic{Example}#1~~}\songti}{\hfill\par\hfill\par}
+\newcounter{Def}[section]
+\newenvironment{Def}[1][]{{\par\normalfont\bfseries 定义~\stepcounter{Def}\arabic{Def}#1~~\songti}}{\par}
+\newcounter{Note}[section]
+\newenvironment{Note}[1][]{{\par\normalfont\bfseries 注~\stepcounter{Note}\arabic{Note}#1~~}\songti}{\par}
+\title{{\zihao{0}\heiti Homework10}}
+\author{杨圣宇}
+\maketitle
+\chapter{算法分析}
+要实现变参数的反复迭代过程，我们需要两组动态数组来分别进行迭代以及储存数据，其中储存数据的数据的数组的指标代表着变参数，在做完全部的计算后，我们利用输出函数将参数本身以及参数对应的值输出为二维数组。\par
+程序的核心是利用直接迭代的方式产生的，我们需要输入三个参量，$L$ 代表着参数区间长度，其中已经默认参数的起点是 $0$，$K$ 代表着迭代的次数，$N$ 是分点组的个数，最后的区间长度为 $\dfrac{L}{N}$。\par
+注意到本程序的算法是有限次迭代，即在固定参数下得到的结果是唯一的，于是我们若想得到分岔现象，从一次运行的结果是不可能的，但是很方便的是，由于倍分岔必须满足下一次迭代过后的结果与上一次不同（否则我们找到了唯一的不动点，即没有分岔），所以对于想研究的倍数，我们可以在程序的基础上直接调用，使得迭代次数跑完一个周期，
+最后再把数据加到一起（事实上是算法实现的困难，我试图更改不同迭代次数的输出文件名称结果失败了）。 \par
+最后再利用读图可以读出分岔点的位置进而算出 $Feigenbaum$ 常数。
+\chapter{实验结果以及结论}
+分岔现象在迭代次数以及分点很小的时候就可以看到些端倪：\par
+\includegraphics {L=5,N=100,K=100.pdf}\par
+而在分点和迭代数取到足够大时就可以看到具体的分岔现象了:\par
+\includegraphics [scale=0.4]{L=2,N=100000,K=10000&10001.pdf}\par
+我们要计算 $Feigenbaum$ 常数时，需要把区间长度 $L$ 取大一点:\par
+\includegraphics [scale=0.2]{L=5,N=100000,K=10000&10001.pdf}
+从图中计算可得， $\delta=4.67$。
+\chapter{附件}
+Chaotic.exe\par
+Chaotic.pdf\par
+L=5,N=100,K=100.pdf\par
+L=2,N=100000,K=1000010001.pdf\par
+L=5,N=100000,K=1000010001.pdf\par
+test.dat\par
+test.dat\par
+源.cpp\par
+\end{document}

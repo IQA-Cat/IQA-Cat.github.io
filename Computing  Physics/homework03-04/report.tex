@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper,titlepage,openany]{book}
+\usepackage[space]{ctex}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm,ntheorem,graphicx}
+\usepackage[paperwidth=185mm,paperheight=260mm,text={148mm,210mm},left=21mm,includehead,vmarginratio=1:1]{geometry}
+\usepackage{fancyhdr,titlesec,enumerate}
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[OC]{\nouppercase{\heiti\rightmark}}
+\fancyhead[EC]{\nouppercase{\heiti\leftmark}}
+\fancypagestyle{plain}{\renewcommand{\headrulewidth}{0pt}\fancyhf{}}
+\theoremstyle{plain}
+\newcounter{Proposition}[section]
+\newenvironment{Proposition}[1][]{{\par\normalfont\bfseries 命题~\stepcounter{Proposition}\arabic{Proposition}#1~~}\kaishu}{\par}
+\newcounter{Corollary}[section]
+\newenvironment{Corollary}[1][]{{\par\normalfont\bfseries 推论~\stepcounter{Corollary}\arabic{Corollary}#1~~}\kaishu}{\par}
+\newcounter{Theorem}[section]
+\newenvironment{Theorem}[1][]{{\par\normalfont\bfseries 定理~\stepcounter{Theorem}\arabic{Theorem}#1~~}\kaishu}{\par}
+\newcounter{Lemma}[section]
+\newenvironment{Lemma}[1][]{{\par\normalfont\bfseries 引理~\stepcounter{Lemma}\arabic{Lemma}#1~~}\kaishu}{\par}
+\newcounter{Property}[section]
+\newenvironment{Property}[1][]{{\par\normalfont\bfseries 性质~\stepcounter{Property}\arabic{Property}#1~~}\kaishu}{\par}
+\newcounter{Assertion}[section]
+\newenvironment{Assertion}[1][]{{\par\normalfont\bfseries 断语~\stepcounter{Assertion}\arabic{Assertion}#1~~}\kaishu}{\par}
+\newenvironment{Proof}{{\par{\heiti 证明}~~}}{\hfill $\square$ \par\hfill\par}
+\newcounter{Example}[section]
+\newenvironment{Example}[1][]{{\par\normalfont\bfseries 例~\stepcounter{Example}\arabic{Example}#1~~}\songti}{\hfill\par\hfill\par}
+\newcounter{Def}[section]
+\newenvironment{Def}[1][]{{\par\normalfont\bfseries 定义~\stepcounter{Def}\arabic{Def}#1~~\songti}}{\par}
+\newcounter{Note}[section]
+\newenvironment{Note}[1][]{{\par\normalfont\bfseries 注~\stepcounter{Note}\arabic{Note}#1~~}\songti}{\par}
+\title{{\zihao{0}\heiti Homework 05-06}}
+\author{杨圣宇}
+\maketitle
+\chapter{算法分析}
+\section{舍选抽样法}
+舍选抽样法即在直接抽样法的基础上选取包络函数提升抽样效率，本质上是降低了无效抽样次数。对于分布函数为 $g(x,y)$ 的分布，可以取$$p(x)=\dfrac{\int^{h(x)}_{-\inf}g(x,y)dy}{\int^{+\inf}_{-\inf}dx\int^{h(x)}_{-\inf}g(x,y)dy}$$
+可以反解出 $\xi_{1}=\int^{\xi_{x}}_{-\inf}dx\int^{+\inf}_{-\inf}dyg(x,y), \xi_{2}=\int^{\xi_{y}}_{-\inf}dx\int^{+\inf}_{-\inf}dyg(x,y)$，再利用条件 $\xi_{y}\leq h(\xi_{x})$ 是否成立，成立则留下，否则舍去。
+
+\section{简单分布}
+对于简单分布，我们可以利用一个能包络分布函数且形状差不多的函数来先抽样一遍，不妨设为 $F(x)$，则经过一次抽样后的分布为 $$\xi_{1}=\dfrac{\int^{\xi_{x}}_{a}F(x)dx}{\int^{b}_{a}F(x)dx},\xi_{y}=\xi_{2}F(\xi_{x})$$
+
+\end{document} 

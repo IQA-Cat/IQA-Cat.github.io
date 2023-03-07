@@ -1,0 +1,35 @@
+*.aux
+*.out
+*.nav
+*.blg
+*.dvi
+
+#generated ref
+*.bbl 
+
+*.log 
+*.gz
+*.latexmk
+*.fdb_latexmk
+*.fls
+*.idx
+*.ind
+*.ilg
+*.cls
+
+#table of contents
+*.toc 
+
+*.thm
+*.snm
+
+#images
+*.png
+*.jpg
+*.eps
+*.pdf
+
+*.zip
+*.rar
+
+*.dat
